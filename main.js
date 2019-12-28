@@ -10,17 +10,18 @@ function new_icon(text = '0:00', color = '#fff') {
 }
 
 setTimeout(function() {
-    var s$icon = { back: true, elm: document.querySelector( 'link[rel="shortcut icon"]').href};
+    var sicon = { back: true, href: document.querySelector( 'link[rel="shortcut icon"]').href};
+    document.querySelector( 'link[rel="shortcut icon"]').setAttribute('rel', 'icon');
 	setInterval( () => {
 		let time = document.querySelector('div > div > div[title="Add duration"]').innerText.slice(-4);
-		if (time !== '0:00') {
-			document.querySelector('link[rel="shortcut icon"]').href = new_icon(time);
-			s$icon.back == false;
-		} else {
-			if (s$icon.back == false) {
-				document.querySelector('link[rel="shortcut icon"]').href = s$icon.elm;
-				s$icon.back = true;
+		if (time == '0:00') {
+			if (sicon.back == false) {
+				document.querySelector('link[rel="icon"]').href = sicon.href;
+				sicon.back = true;
 			}
+		} else {
+			document.querySelector('link[rel="icon"]').href = new_icon(time);
+			sicon.back = false;
 		}
-	}, 1000, s$icon);
+	}, 1000, sicon);
 }, 5000);
